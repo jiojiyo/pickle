@@ -1,0 +1,335 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@import url('./reset.css');
+
+/* 하단 이미지 조절 */
+
+.box{
+    width: 114px;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 10px;
+}
+.box_p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+body{
+    max-width: 1300px;
+    min-width: 500px;
+    height: 100%;
+    width:100%;
+    margin:0 auto;
+    background-color: black;
+    font-family: 'Pretendard-Regular';
+    line-height: 130%;
+}
+a { text-decoration: none;
+    color: white}
+    
+nav{
+    background-color: white;
+}
+
+/* 예고편, 포스터 */
+.detail_1{
+    background-color:black;
+    position: relative;
+    max-width: 100%;
+}
+.preview{
+    margin-top: 83px;;
+    width: 100%;
+    height: 30vh;
+    align-items: center;
+}
+.Poster{
+    position:absolute;
+}
+.poster{
+    margin-left: 10%;
+    width: 114px;
+    height: 164px;
+    position: relative;
+    border:1px solid white;
+}
+
+/*제목, 제작년도, 장르, 국가 */
+.detail_2{
+    width: 100%;
+    margin-left:20px;
+    height: 164px;
+    background-color: rgba(128, 128, 128, 0.178);
+    padding-bottom:1px;
+}
+.title_info{
+    color: white;
+    margin: none;
+    margin-left: 120px;
+}
+
+.title{
+    margin-top:0px;
+    margin-left:0px;
+    margin-bottom: 0;
+    font-weight: 800;
+    font-size:15px;
+}
+
+.pick{
+    background-color:white;
+    color:#099F53;
+    text-decoration: none;
+    margin-top:5px;
+    border-radius:10px;
+}
+
+.Thumb{
+    margin-top:7px;
+    padding-left:124px;
+    color:white;
+    font-size:45px;
+}
+.thumbup{
+    display: inline-block;
+}
+.thumbdown{
+    display: inline-block;
+    transform: scaleX(-1); 
+}
+.info{
+    margin-bottom: 0px;
+}
+/* 감독, 출연진 */
+
+.detail_3{
+    color: white;
+    padding-left:20px;
+    display:inline-block;
+    width: 100%;
+}
+.Profile_1{
+    margin-top: 20px;
+}
+.pick_{
+    width: 31px;
+}
+.jjim{
+    color: white;
+    margin: 11px 0 0px 120px;
+    padding: 6px 5px;
+    width: 100px;
+    height: 43px;
+    border: 2px solid #b1b1b1;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.profile{
+    padding:5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+}
+
+.profile_text{
+    justify-content: center;
+    display: inline;
+    padding:1px;
+}
+
+/* 기본정보, 줄거리, 키워드 */
+.detail_4{
+    width: 100%;
+    padding-top:15px;
+    padding-left:20px;
+    padding-bottom:15px;
+    background-color: rgba(128, 128, 128, 0.178);
+    color:white;
+}
+
+.Keyword{
+    width: 100%;
+    margin-top:15px;
+}
+.keyword{
+    background-color: rgba(128, 128, 128, 0.178);
+    width: 100%;
+    color:#099F53;
+    background-color: white;
+    border-radius: 13px;
+    padding:3px;
+    margin: 1px;
+    overflow: auto;
+}
+.story{
+    font-size: 13.5px;
+}
+
+/*비슷한 작품  */
+p{color: white;}
+.detail_5{
+    padding-top:15px;
+    padding-bottom: 15px;
+    color:white;
+    margin-left:20px;
+}
+.similar_movie_list{
+    display:flex;
+    padding:15px;
+    padding-left:0px;
+}
+.similar_poster{
+    height: 164px;
+    width: 114px;
+}
+
+/* 헤더영역 css */
+.header{
+    padding: 0px 0px 5px 0px;
+    max-width: 1300px;
+    min-width: 500px;
+    margin:0 auto;
+}
+.nav-sort{
+    align-content: flex-end;
+    align-items: flex-end;
+    padding-right: 10px;
+}
+.search_before{
+    color: #ffffff80;
+    padding-right: 13px;
+    font-size: 17px;
+    cursor: pointer;
+}
+.header_search_after{
+    position: absolute;
+    top: 22px;
+    display: none;
+    align-items: center;
+    right: 13%;
+    height: 33px;
+    max-width: 220px;
+    width: 100%;
+    background-color: white;
+    border-radius: 2px;
+}
+.header_search_after i{
+    color: black;
+    padding: 7px;
+}
+.header_search_after input{
+    border: none;
+    width: 160px;
+    outline: none;
+}
+.header_search_x{
+    border: black 1px;
+    cursor: pointer;
+}
+
+
+@media screen and (min-width: 768px){
+    .header_search_after{
+        right: 10%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------카테고리------- */
+@media screen and (max-width: 768px) { 
+    body{
+        position: relative;
+    }
+    .category{
+        width: 100%;
+        min-width: 500px;
+        height: 100%;
+        background-color: rgba(3,7,8,0.95);
+        position: absolute;
+        top: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+    .category ul{
+        position: absolute;
+        top: 10%;
+        margin-top: 100px;
+    }
+    .category ul li{
+        list-style: none;
+        color: rgb(121,121,121);
+        line-height: 330%;
+        cursor: pointer;
+    }
+    .collapse{
+        display: block;
+    }
+}
+@media screen and (min-width: 768px) { 
+    body{
+        position: relative;
+    }
+    .category{
+        width: 100%;
+        max-width: 300px;
+        height: 100%;
+        background-color: rgba(3,7,8,0.95);
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+    .category ul{
+        position: fixed;
+        top: 10%;
+        text-align: right;
+    }
+    .category ul li{
+        list-style: none;
+        color: rgb(121,121,121);
+        line-height: 330%;
+        cursor: pointer;
+    }
+    .collapse{
+        display: block;
+    }
+}
+
+
+/* 부트스트랩 고치기... */
+@media (min-width: 992px){
+    .container, .container-sm, .container-md, .container-lg {
+        max-width: 1050px;
+    }
+}
+@media (min-width: 768px){
+    .container, .container-sm, .container-md {
+        max-width: 1200px;
+    }
+}
+@media (min-width: 576px){
+    .container, .container-sm {
+        max-width: 1200px;
+    }
+}
+

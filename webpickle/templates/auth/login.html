@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PICKLE</title>
+    <link href="{{ url_for('static', filename='img/pickicon3.png')}}" rel="shortcut icon" type="image/x-icon">
+    <link rel='stylesheet' href="{{ url_for('static',filename='css/login.css')}}">
+</head>
+<body>
+    <nav>
+        <a href='../sora/beforemain.html'>
+        <img class='logo' src="{{ url_for ('static',filename='img/alpha.png')}}" width="130" height="60"></a>
+        <a class='register' href="{{ url_for('auth.insert')}}">회원가입</a>
+    </nav>
+
+
+    <!-- <div class="loginhigh">
+        <p class='login'>로그인</p>
+        <a href="#" class="loginforgot">비밀번호를 잊어버리셨나요?</a>
+    </div> -->
+
+<div class='inputform'>
+    <form method="post" class="login-form">
+    
+        <div class='upper'>
+            <a href="{{ url_for('main.index')}}"><p class='login'><b>로그인</b></p></a>
+        </div>
+        {{ form.csrf_token }}
+        {% include "form_error.html" %}
+        <div class='input-box'>
+            <input type="email" class="user_email" name="id" required="true" placeholder="Email" value="{{ form.id.data or '' }}">
+        </div>
+        <div class='input-box'>
+            <input type="password" class="user_password" name="pw" required="true" placeholder="Password" value="{{ form.pw.data or '' }}">
+            <!-- <label for='userepassword'>password</label> -->
+        </div>
+        <div class='loginforgot'>
+            <a href="{{ url_for('auth.find_id') }}" class="loginforgot_email">이메일 찾기</a>
+            <span>/</span>
+            <a href="{{ url_for('auth.find_pw') }}" class="loginforgot_password">비밀번호 찾기</a></br>
+            <input type="submit" name="Login" value="로그인" class="login-submit">
+        </div>      
+    </form>
+    <div class='anothermethod'>
+        <!-- <div class="underlay-photo"></div>
+        <div class="underlay-black"></div> -->
+    <hr width="40%" border='dashed' align="center"> 
+        <p style="font-size:13px">다른 방법으로 로그인하기</p>
+            <ul class="snslogin" style="padding-inline-start: 0px;">
+                    <li><a href='#'><img src="{{ url_for ('static',filename='img/kakaocirclelogo.png')}}"height="25" width="25"></a></li>
+                    <li><a href='#'><img src="{{ url_for ('static',filename='img/navercirclelogo.png')}}" height="25" width="25"></a></li>
+                    <li><a href='#'><img src="{{ url_for ('static',filename='img/googlecirclelogo.png')}}" height="25" width="25"> </a></li>
+            </ul>
+    </div> 
+</div>
+
+
+
+    <footer>
+        <div class="footer_div">
+            <div class="footerimg">
+                <img src="{{ url_for ('static',filename='img/mainiconafter.png')}}" alt="">
+            </div>
+            <div class="footertext">
+                <span>pickle</span>
+                <span>Pick에taste를 더하다. Pickle!</span>
+                <span>문의번호 : 010-3125-5216 | 대표자명 : 안효제 </span>
+                <span>고객센터 1599-0000 (평일 09:00~18:00 | 주말 및 공휴일 휴무)</span>
+                <span>주소 : 충남 천안시 서북구 두정동 698 말우물 빌딩 6층 비트캠프 </span>
+            </div>
+            <div class="instaricon">
+                <i class="fab fa-instagram-square fa-2x"></i>
+                <i class="fab fa-twitter-square fa-2x"></i>
+                <i class="fab fa-facebook-square fa-2x"></i>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

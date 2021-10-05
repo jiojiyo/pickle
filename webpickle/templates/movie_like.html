@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PICKLE</title>
+    
+    <link rel="shorcut icon"  href="{{ url_for('static', filename='image/pickle_logo.png') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/6c462b77be.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_user_like.css') }}">
+
+    <script>
+        function click_up(){
+            $('#user_like_space .fa-thumbs-up').click(function(){
+                var $down = $(this).siblings();
+                if ($(this).hasClass('far')){
+                    $(this).removeClass('far')
+                    $(this).addClass('fas')
+                    if ($down.hasClass('fas')){
+                        $down.removeClass('fas')
+                        $down.addClass('far')
+                        count--;
+                    }
+                    count++;
+                }
+                else{
+                    $(this).removeClass('fas')
+                    $(this).addClass('far')
+                    count--;
+                }
+                var $check_no = $('#check_no');
+                $check_no.text(count)
+                var $next = $('.next');
+                if (count>=10){
+                    $next.removeClass('dis_none');
+                    $next.attr('onclick',"location.href='#'");
+                }
+                else if(count <10){
+                    $next.addClass('dis_none');
+                    $next.removeAttr('onclick');
+                }
+
+            });
+            }
+        function click_down(){
+            $('#user_like_space .fa-thumbs-down').click(function(e){
+                var $up = $(this).siblings();
+                if ($(this).hasClass('far')){
+                    $(this).removeClass('far')
+                    $(this).addClass('fas')
+                    if ($up.hasClass('fas')){
+                        $up.removeClass('fas')
+                        $up.addClass('far')
+                        count--;
+                    }
+                    count++;
+                }
+                else{
+                    $(this).removeClass('fas')
+                    $(this).addClass('far')
+                    count--;
+
+                }
+                var $check_no = $('#check_no');
+                $check_no.text(count)
+                var $next = $('.next');
+                if (count>=10){
+                    $next.removeClass('dis_none');
+                    $next.attr('onclick',"location.href='#'");
+                }
+                else if(count <10){
+                    $next.addClass('dis_none');
+                    $next.removeAttr('onclick');
+                }
+            });
+            }
+        function click_btn(){
+            var $btn = $('#movie_like')
+        }
+        $(document).ready(function(){
+            $(window).scroll(function(){
+                var scroll = $(window).scrollTop();
+                if (scroll > 1) {
+                $(".header").css("background" , "rgb(20,21,23)");
+                }
+                else{
+                $(".header").css("background" , "none");   
+                }
+            });
+            $('.nav-item a').click(function(){
+                let $navbar_collapse = $('.navbar-collapse');
+                $navbar_collapse.removeClass('show');
+            });   
+            click_up()
+            click_down()
+            var $ul = $('#user_like_space li');
+            $('body').css('height',(parseInt($ul.css('height'))+18)*parseInt($ul.length+3));
+
+            $('.next').click(function(){
+            if($(this).hasClass('dis_none')){
+                alert('영화를 10개 이상 평가해주세요.')
+            }
+        });
+        });
+        var count =0;
+
+        click_up()
+        click_down()
+
+        var win = $(window);
+        var img_no = 10;
+        win.scroll(function() {
+            if ($(document).height() - win.height() == win.scrollTop()) {
+                $ul = $('#user_like_space li');
+                var $li = $('#user_like_space li:first-child').clone()
+                var attr_name ='{{ url_for("static", filename="hyoje/img2/12.png") }}' ;
+                console.log(attr_name)
+                $li.find('img').attr('src',attr_name);
+                $li.find('i').removeClass('fas');
+                $li.find('i').addClass('far');
+                $li.find('.movie_title').text('영화제목'+img_no);
+                img_no++;
+
+                
+                $('body').css('height',(parseInt($ul.css('height'))+18)*parseInt($ul.length+3));
+                $('#user_like_space').append($li);
+                
+                }
+        });
+        win.scroll(function(){
+            click_up()
+            click_down()
+        })
+
+
+        
+        win.onload = function() {
+			setTimeout (function () {
+				scrollTo(0,0);
+			},100);
+		}
+        win.onload()
+        
+
+        
+    </script>
+</head>
+<body>
+    <div class="navbar fixed-top navbar-dark header">
+        <div class="container" id="top_mainicon">  
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='image/pick_logo.png') }}" style="width: auto; height: 65px;">
+            </a>
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbar-content">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-content">
+                <ul class="nav navbar-nav nav-sort">
+                    <li class="nav-item"><a class="nav-link" href="#" >로그아웃</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar fixed-top navbar-dark header check_text" style="top: 80px; z-index: 1029;">
+        <span>현재 평가한 영화는 <span id="check_no">0</span>개입니다.</span>
+    </div>
+    <form id="section_area">
+        <div id="section">
+            <ul id="user_like_space">
+                <li>
+                    <div class="user_like_space_movie">
+                        <img src="{{ url_for('static', filename='image/1.png') }}">
+                        <div class="user_like_space_info">
+                            <span class="movie_title">그 해 여름</span>
+                            <span>
+                                <span class="movie_year">2006년</span>
+                                ・ 
+                                <span class="movie_nation">대한민국</span>
+                            </span>
+                            <div class="movie_like">
+                                <i class="far fa-thumbs-up"></i>
+                                <i class="far fa-thumbs-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                <li>
+                    <div class="user_like_space_movie">
+                        <img src="{{ url_for('static', filename='image/2.png') }}">
+                        <div class="user_like_space_info">
+                            <span class="movie_title">선택</span>
+                            <span>
+                                <span class="movie_year">2003년</span>
+                                ・ 
+                                <span class="movie_nation">대한민국</span>
+                            </span>
+                            <div class="movie_like">
+                                <i class="far fa-thumbs-up"></i>
+                                <i class="far fa-thumbs-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                <li>
+                    <div class="user_like_space_movie">
+                        <img src="{{ url_for('static', filename='image/3.png') }}">
+                        <div class="user_like_space_info">
+                            <span class="movie_title">국경의 남쪽</span>
+                            <span>
+                                <span class="movie_year">2006년</span>
+                                ・ 
+                                <span class="movie_nation">대한민국</span>
+                            </span>
+                            <div class="movie_like">
+                                <i class="far fa-thumbs-up"></i>
+                                <i class="far fa-thumbs-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                <li>
+                    <div class="user_like_space_movie">
+                        <img src="{{ url_for('static', filename='image/4.png') }}">
+                        <div class="user_like_space_info">
+                            <span class="movie_title">괴물</span>
+                            <span>
+                                <span class="movie_year">2006년</span>
+                                ・ 
+                                <span class="movie_nation">대한민국</span>
+                            </span>
+                            <div class="movie_like">
+                                <i class="far fa-thumbs-up"></i>
+                                <i class="far fa-thumbs-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                <li>
+                    <div class="user_like_space_movie">
+                        <img src="{{ url_for('static', filename='image/5.png') }}">
+                        <div class="user_like_space_info">
+                            <span class="movie_title">생날선생</span>
+                            <span>
+                                <span class="movie_year">2006년</span>
+                                ・ 
+                                <span class="movie_nation">대한민국</span>
+                            </span>
+                            <div class="movie_like">
+                                <i class="far fa-thumbs-up"></i>
+                                <i class="far fa-thumbs-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                <li>
+                    <div class="user_like_space_movie">
+                        <img src="{{ url_for('static', filename='image/6.png') }}">
+                        <div class="user_like_space_info">
+                            <span class="movie_title">저 하늘에도 슬픔이</span>
+                            <span>
+                                <span class="movie_year">2007년</span>
+                                ・ 
+                                <span class="movie_nation">대한민국</span>
+                            </span>
+                            <div class="movie_like">
+                                <i class="far fa-thumbs-up"></i>
+                                <i class="far fa-thumbs-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                <li>
+                    <div class="user_like_space_movie">
+                        <img src="{{ url_for('static', filename='image/7.png') }}">
+                        <div class="user_like_space_info">
+                            <span class="movie_title">순애보</span>
+                            <span>
+                                <span class="movie_year">2000년</span>
+                                ・ 
+                                <span class="movie_nation">대한민국</span>
+                            </span>
+                            <div class="movie_like">
+                                <i class="far fa-thumbs-up"></i>
+                                <i class="far fa-thumbs-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                <li>
+                    <div class="user_like_space_movie">
+                        <img src="{{ url_for('static', filename='image/8.png') }}">
+                        <div class="user_like_space_info">
+                            <span class="movie_title">정글쥬스</span>
+                            <span>
+                                <span class="movie_year">2002년</span>
+                                ・ 
+                                <span class="movie_nation">대한민국</span>
+                            </span>
+                            <div class="movie_like">
+                                <i class="far fa-thumbs-up"></i>
+                                <i class="far fa-thumbs-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                <li>
+                    <div class="user_like_space_movie">
+                        <img src="{{ url_for('static', filename='./image/9.png') }}">
+                        <div class="user_like_space_info">
+                            <span class="movie_title">션샤인</span>
+                            <span>
+                                <span class="movie_year">2002년</span>
+                                ・ 
+                                <span class="movie_nation">대한민국</span>
+                            </span>
+                            <div class="movie_like">
+                                <i class="far fa-thumbs-up"></i>
+                                <i class="far fa-thumbs-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+            </ul>
+            
+        </div>
+        <div class="fixed-top next_area" style="top:50%;">
+            <div class='next dis_none' >
+                <i class="fas fa-arrow-right fa-3x"></i>
+                <br>
+                <span style="font-size: 20px;">메인으로 이동하기</span>
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>

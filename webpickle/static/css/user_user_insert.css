@@ -1,0 +1,36 @@
+@import url('./reset.css');
+@import url('./bootstrap.css');
+@import url('./user_user_insert/user_user_insert.css');
+@import url('./header_footer.css');
+
+
+
+html, body{
+    height: 100%;
+    color: white;
+    min-height: 600px;
+    
+}
+body{
+    background: url('../img/bg2.jpg') no-repeat center center;
+    background-size: cover;
+
+}
+input{
+    color: black;
+}
+
+
+html::after{
+    content: '';
+    position: absolute;
+    background-color: black;
+    background-size: cover;
+    opacity: 0.6;
+    z-index: -1;
+    top:  0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    /* transform: rotate(-45deg); */
+}

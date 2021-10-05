@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>PICKLE</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../static/image/pickicon3.png" rel="shortcut icon" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/6c462b77be.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+        <script>
+            $(document).ready(function(){
+                $(window).scroll(function(){
+                    var scroll = $(window).scrollTop();
+                    if (scroll > 1) {
+                    $(".header").css("background" , "rgb(20,21,23)");
+                    }
+                    else{
+                    $(".header").css("background" , "none");   
+                    }
+                })
+
+                $('.nav-item a').click(function(){
+                    let $navbar_collapse = $('.navbar-collapse');
+                    $navbar_collapse.removeClass('show')
+
+
+                })
+
+                $('.per_ctg').click(function(){
+                    let $category = $('.category');
+                    if ($category.css('display') == 'flex')
+                        $category.css('display','none')
+                    else
+                        $category.css('display','flex')
+                        
+
+
+                })
+                $('.category ul li').click(function(){
+                    let $category = $('.category');
+                    $category.css('display','none')
+
+                })
+
+                $(document).mouseup(function (e){
+                    let categoryup = $(".category");
+                    if(categoryup.has(e.target).length === 0){
+                        categoryup.css('display','none');
+                    }
+                })
+            })
+
+        </script>
+    </head>
+    
+
+    <body style="background-color: rgb(20,21,23);">
+        <div class="navbar fixed-top navbar-dark header">
+            <div class="container" id="top_mainicon">  
+                <a class="navbar-brand" href="{{ url_for('main.main')}}">
+                    <img src="{{ url_for('static',filename='img/mainiconafter.png')}}" style="width: auto; height: 65px;">
+                </a>
+                <div>
+                    <i class="fas fa-search search_before"> 검색</i>
+                    <button class="navbar-toggler" type="button"
+                            data-toggle="collapse" data-target="#navbar-content">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <!-- 카테고리 -->
+                {% if g.user %}
+                <div class="collapse navbar-collapse" id="navbar-content">
+                    <ul class="nav navbar-nav nav-sort">
+                        <li class="nav-item"><a class="nav-link" href="../hyoje/user.html">마이페이지</a></li>
+                        <li class="nav-item"><a class="nav-link per_ctg" href="#">취향별 카테고리</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">로그아웃</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <div class="collapse navbar-collapse" id="navbar-content">
+                    <ul class="nav navbar-nav nav-sort">
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.insert')}}">회원가입</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login')}}">로그인</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+                <!-- 검색창  -->
+            <!-- 검색창  -->
+                <form class="header_search_after" name="search_m" action="{{ url_for('main.search') }}">
+                    <span><i class="fas fa-search"></i></span>
+                    <input type="text" placeholder="제목, 감독, 배우로 검색 " class="input_ck" name="search_m">
+                </form>
+            </div>
+        </div>
+        <!--카테고리  -->
+    <div class="category">
+        <ul>
+            <li onclick="location.href='#'">홈</li>
+            <li onclick="location.href='#'">내가 찜한 콘텐츠</li>
+            <li onclick="location.href='#'">액션</li>
+            <li onclick="location.href='#'">코미디</li>
+            <li onclick="location.href='#'">로맨스</li>
+            <li onclick="location.href='#'">드라마</li>
+            <li onclick="location.href='#'">호러</li>
+            <li onclick="location.href='#'">스릴러</li>
+            <li onclick="location.href='#'">애니메이션</li>
+            <li onclick="location.href='#'">판타지</li>
+            <li onclick="location.href='#'">다큐멘터리</li>
+            <li onclick="location.href='#'">SF</li>
+        </ul>
+    </div>
+
+    <!-- 영화 목록 -->
+    <div id="search_title" class="container">
+        <span>'{{search_m}}' </span> 검색결과
+    </div>
+
+    <div id="movie" class="container movie" >
+        {% if  movie_count > 0 %}
+        {% for mno, title, image, release,  keywords in s_movie %}
+        <div class="aa" onclick="location.href='movie/detail/{{mno}}'" title="{{title}}">
+            <img src="{{ image }}" >
+            <p>{{ title }}</p>
+            <p>{{release}}・ En </p>
+            <p>예상 좋아요!</p>    
+            <!-- <span class=hiddentext>#<br>#독립군<br>#경성<br>#독립운동가<br>#의열단</span>      -->
+        </div>
+        {% endfor %}
+    </div>
+    {%else%}
+    <div class="None_text"> '{{search_m}}'(으)로 검색된 내용이 없습니다.</div>
+    {% endif %}
+
+
+</body>
+</html> 

@@ -1,0 +1,612 @@
+{% if g.user %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>PICKLE</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ url_for('static', filename='image/pickicon3.png') }}" rel="shortcut icon" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/6c462b77be.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <script>
+            $(document).ready(function(){
+                $(window).scroll(function(){
+                    var scroll = $(window).scrollTop();
+                    if (scroll > 1) {
+                    $(".header").css("background" , "rgb(20,21,23)");
+                    }
+                    else{
+                    $(".header").css("background" , "none");   
+                    }
+                })
+                $('.nav-item a').click(function(){
+                    let $navbar_collapse = $('.navbar-collapse');
+                    $navbar_collapse.removeClass('show')
+
+
+                })
+
+                $('.per_ctg').click(function(){
+                    let $category = $('.category');
+
+                    if ($category.css('display') == 'flex')
+                        $category.css('display','none')
+                    else
+                        $category.css('display','flex')
+
+                })
+                $('.category ul li').click(function(){
+                    let $category = $('.category');
+                    $category.css('display','none')
+
+                })
+
+                $(document).mouseup(function (e){
+                    let categoryup = $(".category");
+                    if(categoryup.has(e.target).length === 0){
+                        categoryup.css('display','none');
+                    }
+                })
+                $('.search_before').click(function(){
+                    let $after = $('.header_search_after');
+                    let $before = $('.search_before');
+                    $after.css('display','flex')
+                    $before.css('display','none')
+                })
+                $('.header_search_x').click(function(){
+                    let $after = $('.header_search_after');
+                    let $before = $('.search_before');
+                    $after.css('display','none')
+                    $before.css('display','inline')
+                })
+                function press(f){ 
+                    if(f.keyCode == 13){ //javascript에서는 13이 enter키를 의미함 
+                    search_m.submit(); //formname에 사용자가 지정한 form의 name입력
+                    }
+                } 
+            })
+
+        </script>
+    </head>
+    
+
+<body style="background-color: rgb(20,21,23);">
+    <div class="navbar fixed-top navbar-dark header">
+        <div class="container" id="top_mainicon">  
+            <a class="navbar-brand" href="{{url_for('main.main')}}">
+                <img src="{{ url_for('static', filename='image/mainiconafter.png') }}" style="width: auto; height: 65px;">
+            </a>
+            <div>
+                <i class="fas fa-search search_before"> 검색</i>
+                <button class="navbar-toggler" type="button"
+                        data-toggle="collapse" data-target="#navbar-content">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <!-- 카테고리 -->
+            <div class="collapse navbar-collapse" id="navbar-content">
+                <ul class="nav navbar-nav nav-sort">
+                    <li class="nav-item"><a class="nav-link" href="#">마이페이지</a></li>
+                    <li class="nav-item"><a class="nav-link per_ctg" href="#">취향별 카테고리</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">로그아웃</a></li>
+                </ul>
+            </div>
+            <!-- 검색창  -->
+
+            <form class="header_search_after" name="search_m" action="{{ url_for('main.search') }}">
+                <span><i class="fas fa-search"></i></span>
+                <input type="text" placeholder="제목, 감독, 배우로 검색 " class="input_ck" name="search_m">
+                <div class="header_search_x">
+                    <i class="fas fa-times"></i>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+    <!-- ------------중간 메인 영화-------------- -->
+    <div class="middle">
+        <img src="{{ url_for('static', filename='/image/lalamovie2.jpg') }}" >
+        <div class="middle_txt">
+            <img src="{{ url_for('static', filename='/image/lalatitle.png') }}" class="middle_img_text">
+            <div class="middel_txt_text">
+                <span class="noshow">꿈을 꾸는 사람들을 위한 별들의 도시 ‘라라랜드’. 재즈 피아니스트 ‘세바스찬’(라이언 고슬링)과 배우 지망생 ‘미아’(엠마 스톤), 인생에서 가장 빛나는 순간 만난 두 사람은 미완성인 서로의 무대를 만들어가기 시작한다.</span>
+                <br>
+                <div class="middle_clickinfo" onclick="location.href='/movie/detail/9169'">
+                    <i class="far fa-question-circle "></i>
+                    <span> 상세정보</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 영화 순위 -->
+    <div class="bottom_title_1">
+        <img src="../static/image/mainiconafter.png" style="width: auto; height: 50px;">
+        <P class="bottom_title_picklep">영화순위</P>
+    </div>
+    <div class ='bottom_1' >
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie_1[0][0] }}'" title="{{movie_1[0][1]}}" >
+                <img src="{{ url_for('static', filename='image/one.png') }}" class="one">
+                <img src="{{ movie_1[0][2] }}" class="img_img mimg1">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie_1[1][0] }}'" title="{{movie_1[1][1]}}" >
+                <img src="{{ url_for('static', filename='image/two.png') }}" class="one">
+                <img src="{{ movie_1[1][2] }}" class="img_img mimg2">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie_1[2][0] }}'" title="{{movie_1[2][1]}}" >
+                <img src="{{ url_for('static', filename='image/three.png') }}" class="one">
+                <img src="{{ movie_1[2][2] }}" class="img_img mimg3">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie_1[3][0] }}'"title="{{movie_1[3][1]}}" >
+                <img src="{{ url_for('static', filename='image/four.png') }}" class="one">
+                <img src="{{ movie_1[3][2] }}" class="img_img mimg2">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie_1[4][0] }}'" title="{{movie_1[4][1]}}">
+                <img src="{{ url_for('static', filename='image/five.png') }}" class="one">
+                <img src="{{ movie_1[4][2] }}" class="img_img mimg3">
+            </div>
+        </div>
+    </div> 
+    <!-- ----------- 박스오피스영화------------- -->
+    <div class="bottom_title bottom_title_2">
+        <P>박스오피스 순위</P>
+    </div>
+    <div class ='bottom_1' >
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href=' /movie/detail/{{ movie[5][0] }}'"  title="{{movie[5][1]}}">
+                <img src="{{ url_for('static', filename='image/one.png') }}" class="one">
+                <img src="{{ movie[5][2] }}" class="img_img mimg1">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href=' /movie/detail/{{ movie[6][0] }}'" title="{{movie[6][1]}}" >
+                <img src="{{ url_for('static', filename='image/two.png') }}" class="one">
+                <img src="{{ movie[6][2] }}" class="img_img mimg2">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href=' /movie/detail/{{ movie[7][0] }}'" title="{{movie[7][1]}}" >
+                <img src="{{ url_for('static', filename='image/three.png') }}" class="one">
+                <img src="{{ movie[7][2] }}" class="img_img mimg3">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie[8][0] }}'"title="{{movie[8][1]}}" >
+                <img src="{{ url_for('static', filename='image/four.png') }}" class="one">
+                <img src="{{ movie[8][2] }}" class="img_img mimg2">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie[9][0] }}'" title="{{movie[9][1]}}">
+                <img src="{{ url_for('static', filename='image/five.png') }}" class="one">
+                <img src="{{ movie[9][2] }}" class="img_img mimg3">
+            </div>
+        </div>
+    </div> 
+
+
+    <!-- ----------- 추천영화------------- -->
+    <div class ='bottom' >
+        <div class="bottom_title">
+            <P>{{ g.user.n_name }}님의 취향저격 베스트 콘텐츠!</P>
+        </div>
+        <div class="bottom_img">
+            <div class="show" onclick="location.href='/movie/detail/{{movie[0][0]}}'" title="{{movie[0][1]}}">
+                <img src="{{ movie[0][2] }}" class="img_img mimg1">
+                <p onclick="location.href='#'">{{movie[0][1]}}</p>
+                <p>{{ movie[0][5] }}・미국</p>
+                <p>예상 좋아요!</p>
+                {% if movie[0][0] in samemnolist %}
+                <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                {% endif %}
+            </div>
+            <div class="show" onclick="location.href='/movie/detail/{{movie[1][0]}}'" title="{{movie[1][1]}}">
+                <img src="{{ movie[1][2] }}" class="img_img mimg1">
+                <p onclick="location.href='#'"> {{movie[1][1]}}</p>
+                <p>{{ movie[1][5] }}・일본</p>
+                <p>예상 좋아요!</p>
+                {% if movie[1][0] in samemnolist %}
+                <p>{ movie[1][0] }</p>
+                <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                {% endif %}
+            </div>
+            <div class="show" onclick="location.href='/movie/detail/{{movie[2][0]}}'" title="{{movie[2][1]}}">
+                <img src="{{ movie[2][2] }}" class="img_img mimg1">
+                <p onclick="location.href='#'">{{movie[2][1]}}</p>
+                <p>{{ movie[2][5] }}・영국</p>
+                <p>예상 좋아요!</p>
+                {% if movie[2][0] in samemnolist %}
+                <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                {% endif %}
+                
+            </div>
+            <div class="show" onclick="location.href='/movie/detail/{{movie[3][0]}}'" title="{{movie[3][1]}}">
+                <img src="{{ movie[3][2] }}" class="img_img mimg1">
+                <p onclick="location.href='#'">{{movie_1[3][1]}}</p>
+                <p>{{ movie[3][5] }}・한국</p>
+                <p>예상 좋아요!</p>
+                {% if movie[3][0] in samemnolist %}
+                <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                {% endif %}
+            </div>
+            <div class="noshow" onclick="location.href='/movie/detail/{{movie[4][0]}}'" title="{{movie[4][1]}}">
+                <img src="{{ movie[4][2] }}" class="img_img mimg1">
+                <p onclick="location.href='#'">{{movie[4][1]}}</p>
+                <p>{{ movie[4][5] }}・영국</p>
+                <p>예상 좋아요!</p>
+                {% if movie[4][0] in samemnolist %}
+                <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                {% endif %}
+            </div>
+            <div class="noshow" onclick="location.href='/movie/detail/{{movie[16][0]}}'" title="{{movie[16][1]}}" >
+                <img src="{{ movie[16][2] }}" class="img_img mimg1">
+                <p onclick="location.href='#'">{{movie[16][1] }}</p>
+                <p>{{ movie[16][5] }}・한국</p>
+                <p>예상 좋아요!</p>
+                {% if movie[16][0] in samemnolist %}
+                <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                {% endif %}
+            </div>
+        </div>
+    </div> 
+
+        <!-- ----------- 추천영화2------------- -->
+        <div class ='bottom' >
+            <div class="bottom_title">
+                <P>{{ g.user.n_name }}님의 취향저격 베스트 콘텐츠!</P>
+            </div>
+            <div class="bottom_img">
+                <div class="show" onclick="location.href='/movie/detail/{{movie[10][0]}}'" title="{{movie[10][1]}}">
+                    <img src="{{ movie[10][2] }}" class="img_img mimg1">
+                    <p onclick="location.href='#'">{{movie[10][1]}}</p>
+                    <p>{{ movie[10][5] }}・미국</p>
+                    <p>예상 좋아요!</p>
+                    {% if movie[10][0] in samemnolist %}
+                    <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                    {% endif %}
+                </div>
+                <div class="show" onclick="location.href='/movie/detail/{{movie[11][0]}}'" title="{{movie[11][1]}}">
+                    <img src="{{ movie[11][2] }}" class="img_img mimg1">
+                    <p onclick="location.href='#'"> {{movie[11][1]}}</p>
+                    <p>{{ movie[11][5] }}・일본</p>
+                    <p>예상 좋아요!</p>
+                    {% if movie[11][0] in samemnolist %}
+                    <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                    {% endif %}
+                </div>
+                <div class="show" onclick="location.href='/movie/detail/{{movie[12][0]}}'" title="{{movie[12][1]}}"> 
+                    <img src="{{ movie[12][2] }}" class="img_img mimg1">
+                    <p onclick="location.href='#'">{{movie[12][1]}}</p>
+                    <p>{{ movie[12][5] }}・영국</p>
+                    <p>예상 좋아요!</p>
+                    {% if movie[12][0] in samemnolist %}
+                    <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                    {% endif %}
+                </div>
+                <div class="show" onclick="location.href='/movie/detail/{{movie[13][0]}}'" title="{{movie[13][1]}}">
+                    <img src="{{ movie[13][2] }}" class="img_img mimg1">
+                    <p onclick="location.href='#'">{{movie[13][1]}}</p>
+                    <p>{{ movie[13][5] }}・한국</p>
+                    <p>예상 좋아요!</p>
+                    {% if movie[13][0] in samemnolist %}
+                    <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                    {% endif %}
+                </div>
+                <div class="noshow" onclick="location.href='/movie/detail/{{movie[14][0]}}'" title="{{movie[14][1]}}">
+                    <img src="{{ movie[14][2] }}" class="img_img mimg1">
+                    <p onclick="location.href='#'">{{movie[14][1]}}</p>
+                    <p>{{ movie[14][5] }}・영국</p>
+                    <p>예상 좋아요!</p>
+                    {% if movie[14][0] in samemnolist %}
+                    <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                    {% endif %}
+                </div>
+                <div class="noshow" onclick="location.href='/movie/detail/{{movie[15][0]}}'" title="{{movie[15][1]}}" >
+                    <img src="{{ movie[15][2] }}" class="img_img mimg1">
+                    <p onclick="location.href='#'">{{movie[15][1] }}</p>
+                    <p>{{ movie[15][5] }}・한국</p>
+                    <p>예상 좋아요!</p>
+                    {% if movie[15][0] in samemnolist %}
+                    <img src="{{ url_for('static', filename='image/pick_.png') }}" class="picklepick">
+                    {% endif %}
+                </div>
+            </div>
+        </div> 
+
+    <footer>
+        <div class="footer_div">
+            <div class="footerimg">
+                <img src="{{ url_for('static', filename='../static/image/mainiconafter.png') }}" alt="">
+            </div>
+            <div class="footertext">
+                <span>pickle</span>
+                <span>Pick에taste를 더하다. Pickle!</span>
+                <span>문의번호 : 010-3125-5216 | 대표자명 : 안효제 </span>
+                <span>고객센터 1599-0000 (평일 09:00~18:00 | 주말 및 공휴일 휴무)</span>
+                <span>주소 : 충남 천안시 서북구 두정동 698 말우물 빌딩 6층 비트캠프 </span>
+            </div>
+            <div class="instaricon">
+                <i class="fab fa-instagram-square fa-2x"></i>
+                <i class="fab fa-twitter-square fa-2x"></i>
+                <i class="fab fa-facebook-square fa-2x"></i>
+            </div>
+        </div>
+    </footer>
+
+        <!--카테고리  -->
+    <div class="category">
+        <ul>
+            <li onclick="location.href='#'">홈</li>
+            <li onclick="location.href='#'">내가 찜한 콘텐츠</li>
+            <li onclick="location.href='#'">액션</li>
+            <li onclick="location.href='#'">코미디</li>
+            <li onclick="location.href='#'">로맨스</li>
+            <li onclick="location.href='#'">드라마</li>
+            <li onclick="location.href='#'">호러</li>
+            <li onclick="location.href='#'">스릴러</li>
+            <li onclick="location.href='#'">애니메이션</li>
+            <li onclick="location.href='#'">판타지</li>
+            <li onclick="location.href='#'">다큐멘터리</li>
+            <li onclick="location.href='#'">SF</li>
+        </ul>
+    </div>
+
+</body>
+</html> 
+
+<!-- 게스트 메인  -->
+{% else %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <head>
+            <title>PICKLE</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link href="{{ url_for('static', filename='image/pickicon3.png') }}" rel="shortcut icon" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/6c462b77be.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/guest_main.css') }}">
+        <script>
+            $(document).ready(function(){
+                $(window).scroll(function(){
+                    var scroll = $(window).scrollTop();
+                    if (scroll > 1) {
+                    $(".header").css("background" , "rgb(20,21,23)");
+                    }
+                    else{
+                    $(".header").css("background" , "none");   
+                    }
+                })
+                $('.nav-item a').click(function(){
+                    let $navbar_collapse = $('.navbar-collapse');
+                    $navbar_collapse.removeClass('show')
+
+
+                })
+
+                $('.per_ctg').click(function(){
+                    let $category = $('.category');
+
+                    if ($category.css('display') == 'flex')
+                        $category.css('display','none')
+                    else
+                        $category.css('display','flex')
+
+                })
+                $('.category ul li').click(function(){
+                    let $category = $('.category');
+                    $category.css('display','none')
+
+                })
+
+                $(document).mouseup(function (e){
+                    let categoryup = $(".category");
+                    if(categoryup.has(e.target).length === 0){
+                        categoryup.css('display','none');
+                    }
+                })
+                $('.search_before').click(function(){
+                    let $after = $('.header_search_after');
+                    let $before = $('.search_before');
+                    $after.css('display','flex')
+                    $before.css('display','none')
+                })
+                $('.header_search_x').click(function(){
+                    let $after = $('.header_search_after');
+                    let $before = $('.search_before');
+                    $after.css('display','none')
+                    $before.css('display','inline')
+                })
+                function press(f){
+                    if(f.keyCode ==13){
+                        input_ck.submit();
+                    }
+                }
+            })
+        </script>
+    </head>
+    
+
+<body style="background-color: rgb(20,21,23);">
+    <div class="navbar fixed-top navbar-dark header">
+        <div class="container" id="top_mainicon">  
+            <a class="navbar-brand" href="{{url_for('main.main')}}">
+                <img src="{{ url_for('static', filename='image/mainiconafter.png') }}" style="width: auto; height: 65px;">
+            </a>
+            <div>
+                <i class="fas fa-search search_before"> 검색</i>
+                <button class="navbar-toggler" type="button"
+                        data-toggle="collapse" data-target="#navbar-content">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <!-- 카테고리 -->
+            <div class="collapse navbar-collapse" id="navbar-content">
+                <ul class="nav navbar-nav nav-sort">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.insert')}} ">회원가입</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login')}}">로그인</a></li>
+                </ul>
+            </div>
+            <!-- 검색창  -->
+            <form class="header_search_after" name="search_m" action="{{ url_for('main.search') }}">
+                <span><i class="fas fa-search"></i></span>
+                <input type="text" placeholder="제목, 감독, 배우로 검색 " class="input_ck" name="search_m">
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ------------중간 메인 영화-------------- -->
+    <div class="middle">
+        <img src="{{ url_for('static', filename='image/lalamovie2.jpg') }}" >
+        <div class="middle_txt">
+            <img src="{{ url_for('static', filename='image/lalatitle.png') }}" class="middle_img_text">
+            <div class="middel_txt_text">
+                <!-- <span class="noshow">꿈을 꾸는 사람들을 위한 별들의 도시 ‘라라랜드’. 재즈 피아니스트 ‘세바스찬’(라이언 고슬링)과 배우 지망생 ‘미아’(엠마 스톤), 인생에서 가장 빛나는 순간 만난 두 사람은 미완성인 서로의 무대를 만들어가기 시작한다.</span> -->
+                <br>
+                <div class="middle_clickinfo" onclick="location.href='/movie/detail/9169'">
+                    <i class="far fa-question-circle "></i>
+                    <span> 상세정보</span>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <!-- ----------- 영화순위------------- -->
+    <div class="bottom_title_1">
+        <img src="{{ url_for('static', filename='image/mainiconafter.png') }}" style="width: auto; height: 50px;">
+        <P class="bottom_title_picklep">영화순위</P>
+    </div>
+    <div class ='bottom_1' >
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href=' /movie/detail/{{ movie_1[0][0] }}'" title="{{movie_1[0][1]}}" >
+                <img src="{{ url_for('static', filename='image/one.png') }}" class="one">
+                <img src="{{ movie_1[0][2] }}" class="img_img mimg1">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie_1[1][0] }}'"title="{{movie_1[1][1]}}" >
+                <img src="{{ url_for('static', filename='image/two.png') }}" class="one">
+                <img src="{{ movie_1[1][2] }}" class="img_img mimg2">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie_1[2][0] }}'" title="{{movie_1[2][1]}}">
+                <img src="{{ url_for('static', filename='image/three.png') }}" class="one">
+                <img src="{{ movie_1[2][2] }}" class="img_img mimg3">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie_1[3][0] }}'"title="{{movie_1[3][1]}}" >
+                <img src="{{ url_for('static', filename='image/four.png') }}" class="one">
+                <img src="{{ movie_1[3][2] }}" class="img_img mimg2">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie_1[4][0] }}'" title="{{movie_1[4][1]}}">
+                <img src="{{ url_for('static', filename='image/five.png') }}" class="one">
+                <img src="{{ movie_1[4][2] }}" class="img_img mimg3">
+            </div>
+        </div>
+    </div> 
+    <!-- ----------- 박스오피스 순위------------- -->
+    <div class="bottom_title_1 bottom_title_2">
+        <P>박스오피스 순위</P>
+    </div>
+    <div class ='bottom_1' >
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie[0][0] }}'"  title="{{movie[0][1]}}">
+                <img src="{{ url_for('static', filename='image/one.png') }}" class="one">
+                <img src="{{ movie[0][2] }}" class="img_img mimg1">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie[1][0] }}'" title="{{movie[1][1]}}" >
+                <img src="{{ url_for('static', filename='image/two.png') }}" class="one">
+                <img src="{{ movie[1][2] }}" class="img_img mimg2">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie[2][0] }}'" title="{{movie[2][1]}}" >
+                <img src="{{ url_for('static', filename='image/three.png') }}" class="one">
+                <img src="{{ movie[2][2] }}" class="img_img mimg3">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie[3][0] }}'"title="{{movie[3][1]}}" >
+                <img src="{{ url_for('static', filename='image/four.png') }}" class="one">
+                <img src="{{ movie[3][2] }}" class="img_img mimg2">
+            </div>
+        </div>
+        <div class="bottom_img_1">
+            <div class="show rank"  onclick="location.href='/movie/detail/{{ movie[4][0] }}'" title="{{movie[4][1]}}">
+                <img src="{{ url_for('static', filename='image/five.png') }}" class="one">
+                <img src="{{ movie[4][2] }}" class="img_img mimg3">
+            </div>
+        </div>
+    </div> 
+
+
+        <!--카테고리  -->
+    <div class="category">
+        <ul>
+            <li onclick="location.href='#'">홈</li>
+            <li onclick="location.href='#'">내가 찜한 콘텐츠</li>
+            <li onclick="location.href='#'">액션</li>
+            <li onclick="location.href='#'">코미디</li>
+            <li onclick="location.href='#'">로맨스</li>
+            <li onclick="location.href='#'">드라마</li>
+            <li onclick="location.href='#'">호러</li>
+            <li onclick="location.href='#'">스릴러</li>
+            <li onclick="location.href='#'">애니메이션</li>
+            <li onclick="location.href='#'">판타지</li>
+            <li onclick="location.href='#'">다큐멘터리</li>
+            <li onclick="location.href='#'">SF</li>
+        </ul>
+    </div>
+
+    
+    <footer>
+        <div class="footer_div">
+            <div class="footerimg">
+                <img src="{{ url_for('static', filename='image/mainiconafter.png') }}" alt="">
+            </div>
+            <div class="footertext">
+                <span>pickle</span>
+                <span>Pick에taste를 더하다. Pickle!</span>
+                <span>문의번호 : 010-3125-5216 | 대표자명 : 안효제 </span>
+                <span>고객센터 1599-0000 (평일 09:00~18:00 | 주말 및 공휴일 휴무)</span>
+                <span>주소 : 충남 천안시 서북구 두정동 698 말우물 빌딩 6층 비트캠프 </span>
+            </div>
+            <div class="instaricon">
+                <i class="fab fa-instagram-square fa-2x"></i>
+                <i class="fab fa-twitter-square fa-2x"></i>
+                <i class="fab fa-facebook-square fa-2x"></i>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+</html> 
+{% endif %}

@@ -1,0 +1,105 @@
+@import url('./reset.css');
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}    
+@font-face {
+    font-family: 'twaysky';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twaysky.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} 
+body{
+    font-family: 'Pretendard-Regular';
+    max-width: 1300px;
+    min-width: 500px;
+    margin: 0 auto;
+    height: 100%;
+    min-height: 800px;
+}
+#search_title{
+    display: block;
+    margin: 83px 65px 10px 65px;
+    font-size:  130%;
+    color: white;
+              
+}
+#search_title span{
+    color: rgb(90, 182, 48);
+    font-size:  150%;     
+    font-weight: 900;           
+}
+#movie{
+    display: block;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    max-width: 1200px;
+    min-width: 500px;
+    margin:0px auto;
+    
+    
+    
+    
+}
+.aa{
+    display: inline-block;
+    position:relative;                
+    color: white;
+    margin:7.5px;
+    text-align:justify;
+    line-height:150%;
+    text-align:center;   
+    width: 145px;
+                       
+}
+.aa img{
+    width: 145px;
+    height: 205px;
+    border-radius: 7px;
+    margin: 3px;   
+                  
+}
+.aa p{
+    margin:0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+    
+.aa p:nth-child(4){
+    color: rgb(1, 156, 1);
+    font-size: 14px;
+}
+.hiddentext{
+    font-family: 'twaysky';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    opacity: 0;
+    transform: translate( -50%, -50% );
+    /* color: white; */
+}
+.aa:hover{
+    cursor: pointer;
+    opacity: 0.7;     /*반투명 */
+}
+.aa:hover .hiddentext{
+    opacity: 1;
+    color: rgb(52, 252, 2);
+    font-size: 125%;
+    line-height:150%; /*줄간격*/
+    
+}
+/* 검색결과가 없을 때 노출  */
+.None_text{
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size:18px;
+    height: 130px;
+    justify-content: flex-end;
+}

@@ -1,0 +1,41 @@
+#user_like_actor{
+    margin-top: 100px;
+    max-height: 450px;
+    min-height: 350px;
+    position: relative;
+    background-color: black;
+    
+
+
+}
+
+#user_like_actor > div{
+    position:absolute;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+}
+
+#user_like_actor_img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: 20px;
+}
+.user_like_actor_space{
+    display: flex;
+    flex-direction: row;
+    margin: 15px 0px;
+    
+}
+#user_like_actor_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+#user_like_actor_info a{
+    color: white;
+    text-decoration: none;
+}

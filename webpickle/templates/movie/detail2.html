@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pickle</title>
+    <link href="{{ url_for('static', filename='img/pickicon3.png')}}" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/6c462b77be.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/detail.css')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+        <script>
+            $(document).ready(function(){
+                $(window).scroll(function(){
+                    var scroll = $(window).scrollTop();
+                    if (scroll > 1) {
+                    $(".header").css("background" , "rgb(20,21,23)");
+                    }
+                    else{
+                    $(".header").css("background" , "none");   
+                    }
+                })
+                $('.nav-item a').click(function(){
+                    let $navbar_collapse = $('.navbar-collapse');
+                    $navbar_collapse.removeClass('show')
+                })
+
+                $('.per_ctg').click(function(){
+                    let $category = $('.category');
+
+                    if ($category.css('display') == 'flex')
+                        $category.css('display','none')
+                    else
+                        $category.css('display','flex')
+
+                })
+                $('.category ul li').click(function(){
+                    let $category = $('.category');
+                    $category.css('display','none')
+                })
+
+                $(document).mouseup(function (e){
+                    let categoryup = $(".category");
+                    if(categoryup.has(e.target).length === 0){
+                        categoryup.css('display','none');
+                    }
+                })
+                $('.search_before').click(function(){
+                    let $after = $('.header_search_after');
+                    let $before = $('.search_before');
+                    $after.css('display','flex')
+                    $before.css('display','none')
+                })
+                
+                $('.header_search_x').click(function(){
+                    let $after = $('.header_search_after');
+                    let $before = $('.search_before');
+                    $after.css('display','none')
+                    $before.css('display','inline')
+                })
+            })
+        </script>
+    </head>
+    
+
+    <body style="background-color: rgb(20,21,23);">
+        <div class="navbar fixed-top navbar-dark header">
+            <div class="container" id="top_mainicon">  
+                <a class="navbar-brand" href="{{ url_for('main.main')}}">
+                    <img src="{{ url_for('static',filename='img/mainiconafter.png')}}" style="width: auto; height: 65px;">
+                </a>
+                <div>
+                    <i class="fas fa-search search_before"> 검색</i>
+                    <button class="navbar-toggler" type="button"7712285858844444545645
+                    
+                            data-toggle="collapse" data-target="#navbar-content">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <!-- 카테고리 -->
+                {% if g.user %}
+                <div class="collapse navbar-collapse" id="navbar-content">
+                    <ul class="nav navbar-nav nav-sort">
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.mypage') }}">마이페이지</a></li>
+                        <li class="nav-item"><a class="nav-link per_ctg" href="#">취향별 카테고리</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">로그아웃</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <div class="collapse navbar-collapse" id="navbar-content">
+                    <ul class="nav navbar-nav nav-sort">
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.insert')}}">회원가입</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login')}}">로그인</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+                <!-- 검색창  -->
+                <div class="header_search_after">
+                    <span><i class="fas fa-search"></i></span>
+                    <input type="text" placeholder="제목, 감독, 배우로 검색 ">
+                    <div class="header_search_x">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+        <!--카테고리  -->
+    <div class="category">
+        <ul>
+            <li onclick="location.href='#'">홈</li>
+            <li onclick="location.href='#'">내가 찜한 콘텐츠</li>
+            <li onclick="location.href='#'">액션</li>
+            <li onclick="location.href='#'">코미디</li>
+            <li onclick="location.href='#'">로맨스</li>
+            <li onclick="location.href='#'">드라마</li>
+            <li onclick="location.href='#'">호러</li>
+            <li onclick="location.href='#'">스릴러</li>
+            <li onclick="location.href='#'">애니메이션</li>
+            <li onclick="location.href='#'">판타지</li>
+            <li onclick="location.href='#'">다큐멘터리</li>
+            <li onclick="location.href='#'">SF</li>
+        </ul>
+    </div>
+
+    <div class='detail_1'>
+    <!-- 예고편 -->
+            <video controls width="100%" >   
+                <source src='{{ video }}'>
+            </video>
+
+            <!-- <iframe class='preview' src="https://www.youtube.com/embed/RnGxpZ75zFU?autoplay=1&mute=1" 
+            frameborder="0"allowfullscreen></iframe></div> -->
+        </div>
+    </div>
+    
+    <div class='Poster'>
+        <img class='poster'src= "{{ movie.img1 }}"> 
+    </div>
+
+    <div class='detail_2'>
+        <div class='title_info'>
+            <p class='title' style="font-size: 24px; padding-top: 20px;"><b>{{ movie.title }}</b></p>
+            <p class='info' style="font-size: 15px; padding-top: 3px;">{{ movie.country }} · {{ movie.release}} · {{ movie.runtime }}min</p>
+        </div>
+
+        <!-- 선호도 평가 -->
+        <form method='POST' action="{{ url_for('movie.like',mno=movie.mno) }}"></form>
+        <div class='Thumb'>
+                <div class='thumbup'>
+                    <i class="far fa-thumbs-up fa-xs"><input type ='hidden'value='1'class='good' name='mpref'></i>
+                </div>
+        
+                <div class='thumbdown'>
+                    <i class="far fa-thumbs-down fa-xs" ><input type='hidden'name='mpref'value='0'class='bad'></i>
+                </div>
+        </div>
+        </form>
+    
+        <div class="jjim">
+            {% if g.user %}
+            <a href="{{url_for('movie.pick', mno=movie.mno)}}">
+            <img src="{{url_for('static',filename='image/pick_.png')}}" alt="" class="pick_">
+            찜하기
+        </div>
+            {% endif %}
+    </div>
+
+    
+    <div class='detail_3'>
+        <div class='Profile_1'>
+            <p class='Title' style="font-size:20px; padding-bottom: 5px;"><b>제작/출연</b></p>
+            <div class='PP'>
+                <div class='profile'>
+                    <a href='#'>
+                            <div class='profile_name'>감독 | {{ movie.director }} </br></div>
+                    </a>
+                </div>
+                <div class='profile'> 출연 | </br>
+                    <div><a href='#'>{{ actors[1] }}</a></div>
+                    <div><a href='#'>{{ actors[2] }}</a></div>
+                    <div><a href='#'>{{ actors[3] }}</a></div>
+                </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class='detail_4'>
+        <div class='detail_title'>
+            <p style='font-size: 20px; padding-bottom: 5px;'><b>기본정보</b></p>
+            <p><b>{{ movie.release }} · {{ genres[1:] }} </br>
+            {{ movie.runtime }}min · {{ movie.country }}</b></p>
+            <div class='story'>
+                <p>{{ movie.overview }}</p>
+            </div>
+            <div class='Keyword' >
+                {% for keyword in keywords[1:] %}
+                <a class='keyword' href='#'>#{{ keyword }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    
+    <div class='detail_5'>
+        <p style='font-size: 20px; padding-bottom: 5px;'><b>비슷한 작품</b></p>
+        <div class='similar_movie'>
+            <div class='similar_movie_list'>
+                <div class="box" onclick="location.href='/movie/detail/{{ movie_1[0][0] }}'">
+                    <a href='#'><img class='similar_poster'src='{{ movie_1[0][2] }} '>
+                        <p class="box_p">{{ movie_1[0][1] }} </p></a>
+                </div>
+                <div class="box" onclick="location.href='/movie/detail/{{ movie_1[1][0] }}'">
+                    <a href='#'><img class='similar_poster'src='{{ movie_1[1][2] }} '>
+                        <p class="box_p">{{ movie_1[1][1] }} </p></a>
+                </div>
+                <div class="box" onclick="location.href='/movie/detail/{{ movie_1[2][0] }}'"> 
+                    <a href='#'><img class='similar_poster'src='{{ movie_1[2][2] }} '>
+                        <p class="box_p">{{ movie_1[2][1] }} </p></a>
+                </div>
+                <div class="box" onclick="location.href='/movie/detail/{{ movie_1[3][0] }}'">
+                    <a href='#'><img class='similar_poster'src='{{ movie_1[3][2] }} '>
+                        <p class="box_p">{{ movie_1[3][1] }} </p></a>
+                </div>
+                <div class="box" onclick="location.href='/movie/detail/{{ movie_1[4][0] }}'">
+                    <a href='#'><img class='similar_poster'src='{{ movie_1[4][2] }} '>
+                        <p class="box_p">{{ movie_1[4][1] }}</p></a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>

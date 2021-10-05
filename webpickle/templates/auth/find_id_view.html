@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PICKLE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='hyoje/css/user_user_find_info.css') }}">
+    <link rel="shorcut icon"  href="{{ url_for('static', filename='hyoje/img/pickle_logo.ico') }}">
+    <script src="https://kit.fontawesome.com/6c462b77be.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <script language="javascript">
+        var id = {{id|tojson}};
+        $(document).ready(function(){
+            if(id==null){
+                $('.result').text('입력하신 번호와 일치하는 계정이 없습니다.')
+            }
+            else{
+                $('.result span').text(id)
+            }
+        });
+
+    </script>
+</head>
+
+<body>
+    <header>
+        <a href="#">
+            <img src="{{ url_for('static', filename='hyoje/img/pick_logo.png') }}" id="header_logo_img">
+        </a>
+        <a href="{{ url_for('main.login') }}">
+            <button style="background: none; color: white; font-weight: bold;" id="user_find_move_login" >로그인</button>
+        </a>
+    </header>
+    <div id="user_find_space">
+        <span style="font-size: 20px; font-weight:bold;">피클 계정 찾기</span>
+        <form action="{{ url_for('find.page_move_id2') }}" method="POST">
+            <table style="height: 100%;">
+                <!-- <tr>
+                    <td>닉네임 :&nbsp</td>
+                    <td><input type="text" placeholder="닉네임을 입력하세요" id="nick_name"></td>
+                </tr> -->
+                <tr>
+                    <td>휴대전화번호 :&nbsp</td>
+                    <td><input type="text" placeholder="휴대전화번호를 입력하세요." name="phone_num"></td>
+                </tr>
+                <tr >
+                    <td colspan="2"> 
+                        <input type="submit" value="찾기"  >
+                    </td>
+                </tr>
+            </table>
+            <span class="result">입력하신 번호와 일치하는 계정은&nbsp<span style="font-weight: bold;"></span>&nbsp입니다.</span>
+        </form>
+    </div>
+    <footer>
+        <div class="footer_div">
+            <div class="footerimg">
+                <img src="{{ url_for('static', filename='hyoje/img/pick_logo.png') }}" alt="">
+
+            </div>
+            <div class="footertext">
+                <span>pickle</span>
+                <span>Pick에taste를 더하다. Pickle!</span>
+                <span>문의번호 : 010-3125-5216 | 대표자명 : 안효제 </span>
+                <span>고객센터 1599-0000 (평일 09:00~18:00 | 주말 및 공휴일 휴무)</span>
+                <span>주소 : 충남 천안시 서북구 두정동 698 말우물 빌딩 6층 비트캠프 </span>
+            </div>
+            <div class="instaricon">
+                <i class="fab fa-instagram-square fa-2x"></i>
+                <i class="fab fa-twitter-square fa-2x"></i>
+                <i class="fab fa-facebook-square fa-2x"></i>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

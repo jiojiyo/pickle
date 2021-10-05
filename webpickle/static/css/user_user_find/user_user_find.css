@@ -1,0 +1,66 @@
+header{
+    position: relative;
+    height: 50px;
+    padding-top: 20px;
+}
+#header_logo_img{
+    height: 50px;
+    width: 100px;
+    position: absolute;
+    left: 20px;
+    /* bottom: 0%;
+    transform: translate(-50%, 0%); */
+}
+
+#user_find_move_login{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+}
+#user_find_space{
+    position: absolute;
+    width: 500px;
+    min-width: 500px;
+    height: 400px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+#user_find_space > form{
+height: 200px;
+padding: 5px 0;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+}
+tr > td{
+    text-align: center;
+}
+
+
+td>input[type='submit']{
+    background-color:  rgb(8, 159, 82);
+    width: 300px;
+    border-radius: 40px;
+    height: 48px;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.result{
+    font-size: 15px;
+
+}
+
+.result > span{
+    font-size: 20px;
+    color: red;
+
+}

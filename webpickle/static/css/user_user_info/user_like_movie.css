@@ -1,0 +1,31 @@
+
+#user_like_movie{
+    margin-top: 100px;
+    height: 350px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 0 20px;
+}
+
+#user_like_movie > div{
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: row;
+    /* position: relative; */
+    overflow-x: auto;
+}
+
+.user_like_movie_space{
+    width: 100px;
+    /* height: 230px; */
+    margin-right: 20px;
+
+}
+.user_like_movie_poster{
+    width: 100px;
+    height: 150px;
+    margin-bottom: 10px;
+}
+        

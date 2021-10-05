@@ -1,0 +1,234 @@
+@import url('./reset.css');
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+body{
+    font-family: 'Pretendard-Regular';
+    height: 100%;
+    width: 100%;
+    max-width: 1300px;
+    min-width: 500px;
+    margin:0 auto;
+    line-height: 130%;
+}
+.header{
+    padding: 0px 0px 5px 0px;
+    max-width: 1300px;
+    min-width: 500px;
+    margin:0 auto;
+}
+.nav-sort{
+    align-content: flex-end;
+    align-items: flex-end;
+    padding-right: 10px;
+}
+.search_before{
+    color: #ffffff80;
+    padding-right: 13px;
+    font-size: 17px;
+    cursor: pointer;
+}
+.header_search_after{
+    position: absolute;
+    top: 22px;
+    align-items: center;
+    right: 13%;
+    height: 33px;
+    max-width: 220px;
+    width: 100%;
+    background-color: white;
+    border-radius: 2px;
+}
+.header_search_after i{
+    color: black;
+    padding: 7px;
+}
+.header_search_after input{
+    border: none;
+    width: 160px;
+    outline: none;
+}
+.header_search_x{
+    border: black 1px;
+    cursor: pointer;
+}
+
+
+@media screen and (min-width: 768px){
+    .header_search_after{
+        right: 10%;
+    }
+}
+
+
+
+/* -------카테고리------- */
+@media screen and (max-width: 768px) { 
+    body{
+        position: relative;
+    }
+    .category{
+        width: 100%;
+        min-width: 500px;
+        height: 100%;
+        background-color: rgba(3,7,8,0.95);
+        position: absolute;
+        top: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+    .category ul{
+        position: absolute;
+        top: 10%;
+    }
+    .category ul li{
+        list-style: none;
+        color: rgb(121,121,121);
+        line-height: 330%;
+        cursor: pointer;
+    }
+    .collapse{
+        display: block;
+    }
+}
+@media screen and (min-width: 768px) { 
+    body{
+        position: relative;
+    }
+    .category{
+        width: 100%;
+        max-width: 300px;
+        height: 100%;
+        background-color: rgba(3,7,8,0.95);
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+    .category ul{
+        position: fixed;
+        top: 14%;
+        text-align: right;
+    }
+    .category ul li{
+        list-style: none;
+        color: rgb(121,121,121);
+        line-height: 330%;
+        cursor: pointer;
+    }
+    .collapse{
+        display: block;
+    }
+}
+
+
+/* 부트스트랩 고치기... */
+@media (min-width: 992px){
+    .container, .container-sm, .container-md, .container-lg {
+        max-width: 1050px;
+    }
+}
+@media (min-width: 768px){
+    .container, .container-sm, .container-md {
+        max-width: 1200px;
+    }
+}
+@media (min-width: 576px){
+    .container, .container-sm {
+        max-width: 1200px;
+    }
+}
+
+/*  */
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: #000;
+}
+
+h1 {
+    font-family: Arial;
+    color: red;
+    text-align: center;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3,100%);
+    overflow:hidden;
+    scroll-behavior: smooth;
+}
+
+.wrapper section {
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    margin: 20px 0;
+    justify-items: end;
+    align-content: center;
+}
+.wrapper section a:nth-of-type(1) {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+-90deg, rgba(0, 0, 0, 0) 0%, black 100%);
+}
+    
+.wrapper section a {
+        position: absolute;
+        color: #fff;
+        text-decoration: none;
+        font-size: 6em;
+        background:rgb(0,0,0);
+        width: 80px;
+        padding: 20px;
+        text-align: center;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+}
+.wrapper section a:nth-of-type(2){
+            top:0; bottom:0; right: 0;
+            background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+        }
+
+
+
+@media only screen and (max-width: 600px) {
+  a.arrow__btn {
+    display:none;
+  }
+}
+
+
+.item{
+    display: flex;
+    position: relative;
+}
+.img_img{
+    position: absolute;
+    left: 60%;
+    width: 100%;
+}
+.one{
+    height: 120px;
+    
+}
+

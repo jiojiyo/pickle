@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PICKLE</title>
+    
+    <link href="./image/pickicon3.png" rel="shortcut icon" type="image/x-icon">
+    <link rel="shorcut icon"  href="./img/pickle_logo.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/6c462b77be.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_user_main.css')}}">
+    <script>
+        $(document).ready(function(){
+                $(window).scroll(function(){
+                    var scroll = $(window).scrollTop();
+                    if (scroll > 1) {
+                    $(".header").css("background" , "rgb(20,21,23)");
+                    }
+                    else{
+                    $(".header").css("background" , "none");   
+                    }
+                })
+
+                $('.nav-item a').click(function(){
+                    let $navbar_collapse = $('.navbar-collapse');
+                    $navbar_collapse.removeClass('show')
+
+
+                })
+
+                $('.per_ctg').click(function(){
+                    let $category = $('.category');
+
+                    if ($category.css('display') == 'flex')
+                        $category.css('display','none')
+                    else
+                        $category.css('display','flex')
+
+                })
+                $('.category ul li').click(function(){
+                    let $category = $('.category');
+                    $category.css('display','none')
+
+                })
+
+                $(document).mouseup(function (e){
+                    let categoryup = $(".category");
+                    if(categoryup.has(e.target).length === 0){
+                        categoryup.css('display','none');
+                    }
+                })
+                $('.search_before').click(function(){
+                    let $after = $('.header_search_after');
+                    let $before = $('.search_before');
+                    $after.css('display','flex')
+                    $before.css('display','none')
+                })
+                $('.header_search_x').click(function(){
+                    let $after = $('.header_search_after');
+                    let $before = $('.search_before');
+                    $after.css('display','none')
+                    $before.css('display','inline')
+                })
+            })
+    </script>
+
+    
+</head>
+<body style="margin: 0 auto;">
+    <div class="navbar fixed-top navbar-dark header">
+        <div class="container" id="top_mainicon">  
+            <a class="navbar-brand" href="#">
+                <img src="./img/pick_logo.png" style="width: auto; height: 65px;">
+            </a>
+            <div>
+                <i class="fas fa-search search_before"> 검색</i>
+                <button class="navbar-toggler" type="button"
+                        data-toggle="collapse" data-target="#navbar-content">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <!-- 카테고리 -->
+            <div class="collapse navbar-collapse" id="navbar-content">
+                <ul class="nav navbar-nav nav-sort">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.mypage') }}">마이페이지</a></li>
+                    <li class="nav-item"><a class="nav-link per_ctg" href="#">취향별 카테고리</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">로그아웃</a></li>
+                </ul>
+            </div>
+            <!-- 검색창  -->
+            <div class="header_search_after">
+                <span><i class="fas fa-search"></i></span>
+                <input type="text" placeholder="제목, 감독, 배우로 검색 " style="background-color: white;">
+                <div class="header_search_x">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="user_info">
+        <div id="user_user_info">
+            <span class="sub_title">사용자 정보 </span>
+            <div>
+                <img id='user_user_img' src="./img/actor.jpg" >
+                <div id='user_main_info'>
+                    <div>
+                        <ul id="user_main_info_list">
+                            <li>{{ g.user.n_name }}</li>
+                            <li>{{ g.user.id }}</li>
+                            <li>0{{ g.user.number }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="user_main_update">
+                    <input type="button" value="정보수정 >" onclick="location.href='/auth/update/'">
+                </div>
+            </div>
+        </div>
+        <div id="user_like_movie">
+            <span class="sub_title">찜한 영화</span>
+            {% if movielist %}
+            <div>
+                {% for movie in movielist[:] %}
+                <div OnClick="location.href ='../현지/detail.html'" 
+                    style="cursor:pointer;" 
+                    class="user_like_movie_space">
+                    <img src="{{ movie[0][1] }}" class="user_like_movie_poster" alt="">
+                    <ul class="user_like_movie_info">
+                        <li>{{ movie[0][0] }}</li>
+                    </ul>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                
+            <span class="sub_title">평가한 영화 </span>
+            {% if prefmovielist%}
+            <div>
+                {%for movie in prefmovielist[:]%}
+                <div OnClick="location.href ='../현지/detail.html'" 
+                    style="cursor:pointer;" 
+                    class="user_like_movie_space">
+                    <img src="{{ movie[0][0][1] }}" class="user_like_movie_poster" alt="">
+                    <ul class="movie_info">
+                        <li>{{ movie[0][0][0] }}</li>
+                        <li>{{ movie[1]}}</li>
+                    </ul>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        
+        </div>
+            
+                <!-- <div class="user_like_actor_space">
+                    <img src="./img/actor1.jpg" alt="" id="user_like_actor_img">
+                    <div id="user_like_actor_info">
+                        <a href="#">강동원</a>
+                        <a href="#">actor_movie</a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <footer style="margin-left: -20px;">
+        <div class="footer_div">
+            <div class="footerimg">
+                <img src="./img/pick_logo.png" alt="">
+            </div>
+            <div class="footertext" style="min-width: 450px;">
+                <span>pickle</span>
+                <span>Pick에taste를 더하다. Pickle!</span>
+                <span>문의번호 : 010-3125-5216 | 대표자명 : 안효제 </span>
+                <span>고객센터 1599-0000 (평일 09:00~18:00 | 주말 및 공휴일 휴무)</span>
+                <span>주소 : 충남 천안시 서북구 두정동 698 말우물 빌딩 6층 비트캠프 </span>
+            </div>
+            <div class="instaricon">
+                <i class="fab fa-instagram-square fa-2x"></i>
+                <i class="fab fa-twitter-square fa-2x"></i>
+                <i class="fab fa-facebook-square fa-2x"></i>
+            </div>
+        </div>
+    </footer>
+    <div class="category">
+        <ul>
+            <li onclick="location.href='../소라/bootmain.html'">홈</li>
+            <li onclick="location.href='#'">내가 찜한 콘텐츠</li>
+            <li onclick="location.href='#'">액션</li>
+            <li onclick="location.href='#'">코미디</li>
+            <li onclick="location.href='#'">로맨스</li>
+            <li onclick="location.href='#'">드라마</li>
+            <li onclick="location.href='#'">호러</li>
+            <li onclick="location.href='#'">스릴러</li>
+            <li onclick="location.href='#'">애니메이션</li>
+            <li onclick="location.href='#'">판타지</li>
+            <li onclick="location.href='#'">다큐멘터리</li>
+            <li onclick="location.href='#'">SF</li>
+        </ul>
+</div>
+</body>
+</html>

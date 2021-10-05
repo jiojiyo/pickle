@@ -1,0 +1,23 @@
+@import url('./reset.css');
+@import url('./user_user_like/user_user_like.css');
+@import url('./header_footer.css');
+
+html, body{
+    height: 2000px;
+}
+
+html{
+    background-color: black;
+}
+body{
+    background-color: #141414;
+    min-width: 500px;
+    max-width: 1300px;
+    position: relative;
+    margin: 0 auto;
+    color: white;
+}
+
+ul{
+    list-style: none;
+}

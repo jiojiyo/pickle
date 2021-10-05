@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PICKLE</title>
+    
+    <link rel="shorcut icon"  href="{{ url_for('static', filename='image/pickle_logo.png') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/6c462b77be.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_user_like.css') }}">
+
+    <script>
+        function click_up(){
+            $('#user_like_space .fa-thumbs-up').click(function(){
+                var $down = $(this).siblings();
+                if ($(this).hasClass('far')){
+                    $(this).removeClass('far')
+                    $(this).addClass('fas')
+                    $('.good').attr('name', 'mpref')
+                    if ($down.hasClass('fas')){
+                        $down.removeClass('fas')
+                        $down.addClass('far')
+                        $('.good').removeAttr('name')
+                        count--;
+                    }
+                    count++;
+                }
+                else{
+                    $(this).removeClass('fas')
+                    $(this).addClass('far')
+                    $('.good').removeAttr('name')
+                    count--;
+                }
+                var $check_no = $('#check_no');
+                $check_no.text(count)
+                var $next = $('.next');
+                if (count>=3){
+                    $next.removeClass('dis_none');
+                    console.log('a')
+                }
+                else if(count <3){
+                    $next.addClass('dis_none');
+
+                }
+
+            });
+            }
+        function click_down(){
+            $('#user_like_space .fa-thumbs-down').click(function(e){
+                var $up = $(this).siblings();
+                if ($(this).hasClass('far')){
+                    $(this).removeClass('far')
+                    $(this).addClass('fas')
+                    $('.bad').attr('name', 'mpref')
+                    if ($up.hasClass('fas')){
+                        $up.removeClass('fas')
+                        $up.addClass('far')
+                        $('.bad').removeAttr('name')
+                        count--;
+                    }
+                    count++;
+                }
+                else{
+                    $(this).removeClass('fas')
+                    $(this).addClass('far')
+                    $('.bad').removeAttr('name')
+                    count--;
+
+                }
+                var $check_no = $('#check_no');
+                $check_no.text(count)
+                var $next = $('.next');
+                if (count>=3){
+                    $next.removeClass('dis_none');
+                    console.log('b')
+                }
+                else if(count <3){
+                    $next.addClass('dis_none');
+                }
+            });
+            }
+        function click_btn(){
+            var $btn = $('#movie_like')
+        }
+        $(document).ready(function(){
+            $(window).scroll(function(){
+                var scroll = $(window).scrollTop();
+                if (scroll > 1) {
+                $(".header").css("background" , "rgb(20,21,23)");
+                }
+                else{
+                $(".header").css("background" , "none");   
+                }
+            });
+            $('.nav-item a').click(function(){
+                let $navbar_collapse = $('.navbar-collapse');
+                $navbar_collapse.removeClass('show');
+            });   
+            click_up()
+            click_down()
+            var $ul = $('#user_like_space li');
+            $('body').css('height',(parseInt($ul.css('height'))+18)*parseInt($ul.length+3));
+
+            $('.next').click(function(){
+            
+            if($(this).hasClass('dis_none')){
+                alert('영화를 10개 이상 평가해주세요.')
+            }
+            else{
+                var $next = $('.next');
+                $('#section_area').attr('method','POST')
+                console.log(12313123)
+                
+            }
+
+        });
+        });
+        var count =0;
+
+        click_up()
+        click_down()
+
+        var win = $(window);
+        var img_no = 10;
+
+        win.scroll(function(){
+            click_up()
+            click_down()
+        })
+
+
+        
+        // win.onload = function() {
+      //    setTimeout (function () {
+      //       scrollTo(0,0);
+      //    },100);
+      // }
+        // win.onload()
+        
+
+        
+    </script>
+</head>
+<body>
+    <div class="navbar fixed-top navbar-dark header">
+        <div class="container" id="top_mainicon">  
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='image/pick_logo.png') }}" style="width: auto; height: 65px;">
+            </a>
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbar-content">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-content">
+                <ul class="nav navbar-nav nav-sort">
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('auth.logout') }}" >로그아웃</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar fixed-top navbar-dark header check_text" style="top: 80px; z-index: 1029;">
+        <span class="check_text_sub1">현재 평가한 영화는 <span id="check_no">0</span>개입니다.</span>
+        <span class="check_text_sub2">취향을 분석할 수 있게 10개 이상의 작품을 평가해주세요.</span>
+    </div>
+    <form id="section_area" method="POST" action="{{url_for('main.movie_insert')}}">
+        <div id="section">
+            <ul id="user_like_space">
+                {% for  mno, title, img1, release, country in moviemm %}
+                <li>
+                    <div class="user_like_space_movie">
+                        <img src="{{img1}}">
+                        <div class="user_like_space_info">
+                            <input type = 'hidden' name='uno' value= {{g.user.uno}}>
+                            <input type ='hidden' name='mno' value={{ mno }}>
+                            <span class="movie_title">{{title}}</span>
+                            <span>
+                                <span class="movie_year">{{release}}</span>
+                                ・ 
+                                <span class="movie_nation">{{country}}</span>
+                            </span>
+                            <div class="movie_like">
+                                <i class="far fa-thumbs-up fa-xs" ><input type='hidden'  value='1' class="good"></i>
+                                <i class="far fa-thumbs-down fa-xs" ><input type='hidden' value='0' class='bad'></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                {% endfor %}
+
+            </ul>
+            
+        </div>
+        <button type="submit"  class="fixed-top next_area" style="top:50%; outline: 0;" >
+            <div class='next dis_none'>
+                <i class="fas fa-arrow-right fa-3x"></i>
+                <br>
+                <!-- <input type="submit" value="메인으로 이동" id="submit"> -->
+                <span style="font-size: 17px;">메인으로 이동</span>
+            </div>
+        </button>
+    </form>
+
+</body>
+</html>

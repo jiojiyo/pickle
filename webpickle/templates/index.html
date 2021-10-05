@@ -1,0 +1,27 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width>, initial-scale=1.0">
+    <title>PICKLE</title>
+    <link href="./static/img/pickicon3.png" rel="shortcut icon" type="image/x-icon">
+    <link rel='stylesheet' href=" {{ url_for('static', filename='css/index.css')}}">
+</head>
+<body>
+    <div class='Chogi'>
+        <img class='logo' src='./static/img/alpha.png'>
+        <p class='slogan'>pick에 taste를 더하다</p>
+        <div class='lore'>
+            <a class='login' href="{{ url_for('auth.login')}}">로그인</a>
+            <span class='slash' style="color: white;">/</span>
+            <a class='register' href="{{ url_for('auth.insert')}}">회원가입</a>
+        </div>
+        <div class='justwatch'>
+            <a href="{{ url_for('main.main')}}">그냥 둘러보기</a>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

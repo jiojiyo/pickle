@@ -1,0 +1,37 @@
+
+@import url('./reset.css');
+@import url('./user_user_info/user_like_actor.css');
+@import url('./user_user_info/user_like_movie.css');
+@import url('./user_user_info/user_user_info.css');
+@import url('./header_footer.css');
+
+html, body{
+    height: 1300px;
+}
+html{
+    background-color: black;
+}
+body{
+    background-color: #141414;
+    color: white;
+
+    overflow-y: scroll;
+    min-width: 500px;
+    max-width: 1300px;
+    position: relative;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+ul{
+    list-style: none;
+}
+
+.sub_title{
+    font-weight: bold;
+    font-size: 20px;
+    position: absolute;
+    top: -13%;
+    left: 3%;
+
+}

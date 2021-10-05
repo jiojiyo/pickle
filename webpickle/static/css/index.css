@@ -1,0 +1,77 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+body{
+    width: 100%;
+    margin: 0 auto;
+    background-image: url('../img/widechogi.png');
+    background-size: cover;
+    background-repeat: repeat;
+    font-family: 'Pretendard-Regular'
+}
+.logo{
+    width: 250px;
+    height: auto;
+    align-items: center;
+
+}
+a{
+    text-decoration: none;
+    color: white;
+
+}
+.Chogi{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+.slogan{
+    font-size: 40px;
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 30px;
+    margin-top: 15px;
+}
+.justwatch{
+    text-align: center;
+    text-decoration: underline;
+   
+}
+.justwatch a{ color: rgba(255, 255, 255, 0.672);}
+.login,.register{
+    font-size: 22px;
+}
+.lore{
+    margin-bottom: 8px;
+}
+@media screen and (max-width: 768px) { 
+    body{
+        background-image: none;
+        background-image: url('../img/chogiback.jpg');
+    }
+    .logo{
+        width: 150px;
+        height: auto;
+    }
+    .slogan{
+        font-size: 25px;
+        margin-top: 8px;
+        margin-bottom: 10px;
+    }
+    .lore{
+        margin-bottom: 5px;
+    }
+    .lore a{
+        font-weight: 800;
+        font-size: 18px;
+        font-weight: 100;
+    }
+}
